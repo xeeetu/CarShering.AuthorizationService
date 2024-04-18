@@ -2,15 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\UserRequest;
 use App\Services\UserService;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
     public function __construct(private readonly UserService $userService) {}
 
-    public function store(Request $request): JsonResponse
+    public function store(UserRequest $request): JsonResponse
     {
         $result = $this->userService->create($request);
         if (!$result) {
@@ -19,4 +19,5 @@ class UserController extends Controller
 
         return response()->json(['success' => true, 'Успешно сохранено!'])->setEncodingOptions(JSON_UNESCAPED_UNICODE);
     }
+
 }
